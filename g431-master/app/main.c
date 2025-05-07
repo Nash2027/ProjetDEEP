@@ -22,7 +22,7 @@
 
 
 #define BLINK_DELAY		100	//ms
-#define VITESSE_MAX 200
+#define VITESSE_MAX     200
 
 extern UART_HandleTypeDef huart2; // Handle global UART2 pour printf
 
@@ -60,12 +60,9 @@ int main(void)
 	// Initialisation ADC (potentiomètre)
 	BSP_ADC_init();
 
+	// Initialisation moteur DC
 	static motor_id_e moteur1;
-
-	moteur1 = BSP_MOTOR_add(GPIOA,GPIO_PIN_1,GPIOB,GPIO_PIN_0);
-
-
-
+	moteur1 = BSP_MOTOR_add(GPIOA, GPIO_PIN_1, GPIOB, GPIO_PIN_0);
 
 	while (1)
 	{
@@ -76,17 +73,26 @@ int main(void)
 		int vitesse = (raw_value * VITESSE_MAX) / 4095;
 
 		// Affichage dans le terminal UART
-		printf("Vitesse: %3d km/h | raw ADC: %4d\r\n", vitesse, raw_value);
+		printf("Vitesse: %3d km/h | raw ADC: %4d", vitesse, raw_value);
 
 		// Mettre à jour le compteur graphique
 		MetAJourCompteur(vitesse);
 
-		uint8_t duty = (vitesse * 100) / VITESSE_MAX;    // Convertir en % du PWM
+		// Calcul du PWM avec une réponse progressive
+		float duty_f = 0.0f;
+		if (vitesse > 0) {
+			float ratio = (float)vitesse / VITESSE_MAX;     // 0.0 à 1.0
+			duty_f = 0.6f + powf(ratio, 1.5f) * 0.4f;          // entre 60% et 100%
+		}
+		uint8_t duty = (uint8_t)(duty_f * 100.0f);
+
+		// Afficher le PWM dans le terminal UART
+		printf(" | PWM: %3d %%\r\n", duty);
+
+		// Appliquer le PWM au moteur
 		BSP_MOTOR_set_duty(moteur1, duty);
 
-
-
-		// Petite pause pour stabiliser la lecture
+		// Pause
 		HAL_Delay(200);
 	}
 }
