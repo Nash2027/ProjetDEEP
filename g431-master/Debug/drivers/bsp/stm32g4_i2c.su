@@ -1,0 +1,14 @@
+../drivers/bsp/stm32g4_i2c.c:31:19:BSP_I2C_Init	16	static
+../drivers/bsp/stm32g4_i2c.c:97:6:HAL_I2C_MspInit	128	static
+../drivers/bsp/stm32g4_i2c.c:173:6:HAL_I2C_MspDeInit	8	static
+../drivers/bsp/stm32g4_i2c.c:227:19:I2C_Read16	24	static
+../drivers/bsp/stm32g4_i2c.c:242:19:BSP_I2C_Read	24	static
+../drivers/bsp/stm32g4_i2c.c:258:19:BSP_I2C_ReadMulti	24	static
+../drivers/bsp/stm32g4_i2c.c:272:19:BSP_I2C_ReadNoRegister	16	static
+../drivers/bsp/stm32g4_i2c.c:287:19:BSP_I2C_ReadMultiNoRegister	16	static
+../drivers/bsp/stm32g4_i2c.c:303:19:BSP_I2C_Write	32	static
+../drivers/bsp/stm32g4_i2c.c:319:19:BSP_I2C_WriteMulti	24	static
+../drivers/bsp/stm32g4_i2c.c:340:19:BSP_I2C_WriteNoRegister	24	static
+../drivers/bsp/stm32g4_i2c.c:355:19:BSP_I2C_WriteMultiNoRegister	16	static
+../drivers/bsp/stm32g4_i2c.c:371:6:BSP_I2C_IsDeviceConnected	8	static
+../drivers/bsp/stm32g4_i2c.c:379:21:BSP_I2C_get_handle	8	static

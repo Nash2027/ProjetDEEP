@@ -1,0 +1,6 @@
+../drivers/bsp/MPU6050/stm32g4_mpu6050.c:69:18:MPU6050_Init	15
+../drivers/bsp/MPU6050/stm32g4_mpu6050.c:157:18:MPU6050_ReadAccelerometer	1
+../drivers/bsp/MPU6050/stm32g4_mpu6050.c:174:18:MPU6050_ReadGyroscope	1
+../drivers/bsp/MPU6050/stm32g4_mpu6050.c:191:18:MPU6050_ReadTemperature	1
+../drivers/bsp/MPU6050/stm32g4_mpu6050.c:208:18:MPU6050_ReadAll	1
+../drivers/bsp/MPU6050/stm32g4_mpu6050.c:234:6:MPU6050_demo	2

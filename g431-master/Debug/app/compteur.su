@@ -1,0 +1,5 @@
+../app/compteur.c:10:6:Dessine_compteur_vitesse	64	static
+../app/compteur.c:34:6:Dessine_Aiguille	40	static
+../app/compteur.c:57:6:MetAJourCompteur	16	static
+../app/compteur.c:69:6:ADC1_Init	56	static
+../app/compteur.c:91:5:Lire_Potentiometre	8	static

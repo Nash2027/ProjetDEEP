@@ -1,0 +1,2 @@
+../app/main.c:30:6:write_LED	8	static
+../app/main.c:38:5:main	32	static

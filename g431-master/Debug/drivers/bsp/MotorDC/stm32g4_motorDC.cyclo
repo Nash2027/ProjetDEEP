@@ -1,0 +1,5 @@
+../drivers/bsp/MotorDC/stm32g4_motorDC.c:272:18:MOTOR_gpio_and_pin_to_pwm_channel	28
+../drivers/bsp/MotorDC/stm32g4_motorDC.c:235:12:BSP_MOTOR_add	10
+../drivers/bsp/MotorDC/stm32g4_motorDC.c:353:6:BSP_MOTOR_set_duty	5
+../drivers/bsp/MotorDC/stm32g4_motorDC.c:106:6:BSP_MOTOR_demo	4
+../drivers/bsp/MotorDC/stm32g4_motorDC.c:140:11:BSP_MOTOR_demo_with_manual_drive	30
