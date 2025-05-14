@@ -4,6 +4,11 @@
  * @author 	jjo
  * @date 	Mar 29, 2024
  * @brief	Fichier principal de votre projet sur carte Nucleo STM32G431KB
+ *
+ * PA7 MPU6050
+ * PA1 MoteurDC
+ * PA0 Potentiometre
+ *
  ******************************************************************************
  */
 
@@ -18,11 +23,15 @@
 #include "math.h"
 #include "compteur.h"
 #include "MotorDC/stm32g4_motorDC.h"
+#include "MPU6050/stm32g4_mpu6050.h"
+
 #include <stdio.h>
 
 
-#define BLINK_DELAY		100	//ms
-#define VITESSE_MAX     200
+#define BLINK_DELAY 100	//ms
+#define VITESSE_MAX 200
+#define ACCIDENT_MPU 5000
+
 
 extern UART_HandleTypeDef huart2; // Handle global UART2 pour printf
 
@@ -64,9 +73,17 @@ int main(void)
 	static motor_id_e moteur1;
 	moteur1 = BSP_MOTOR_add(GPIOA, GPIO_PIN_1, GPIOB, GPIO_PIN_0);
 
+	//Initialisation du MPU6050
+		//MPU6050_t MPU6050_Data;
+		// if (MPU6050_Init(&MPU6050_Data, GPIOA, GPIO_PIN_7, MPU6050_Device_0, MPU6050_Accelerometer_8G, MPU6050_Gyroscope_2000s) != MPU6050_Result_Ok) {
+		//         printf("Erreur d'initialisation du MPU6050\r\n");
+		//         while (1); // Boucle infinie en cas d'erreur
+		//     }
+
+
 	while (1)
 	{
-		// Lire valeur brute du potentiomètre (PA0 = ADC_1)
+		// Lire valeur brute du potentiomètre (PA4 = ADC_17)
 		uint16_t raw_value = BSP_ADC_getValue(ADC_1);
 
 		// Convertir la valeur ADC en vitesse (0 à VITESSE_MAX)
