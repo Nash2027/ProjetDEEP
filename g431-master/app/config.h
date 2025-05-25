@@ -46,7 +46,7 @@
 	#define USE_XPT2046			1
 	#define USE_FONT7x10		1
 	#define USE_FONT11x18		1
-	#define USE_FONT16x26		0
+	#define USE_FONT16x26		1
 #endif
 
 #define USE_EPAPER			0 // e-paper (écran basse consommation)

@@ -5,7 +5,6 @@
  * @date 	Mar 29, 2024
  * @brief	Fichier principal de votre projet sur carte Nucleo STM32G431KB
  *
- * PA7 MPU6050
  * PA1 MoteurDC
  * PA0 Potentiometre
  *
@@ -30,8 +29,9 @@
 
 #define BLINK_DELAY 100	//ms
 #define VITESSE_MAX 200
-#define ACCIDENT_MPU 5000
+#define ACCIDENT_MPU 3500
 
+int accident_detected = 0;
 
 extern UART_HandleTypeDef huart2; // Handle global UART2 pour printf
 
@@ -73,12 +73,12 @@ int main(void)
 	static motor_id_e moteur1;
 	moteur1 = BSP_MOTOR_add(GPIOA, GPIO_PIN_1, GPIOB, GPIO_PIN_0);
 
-	//Initialisation du MPU6050
-		//MPU6050_t MPU6050_Data;
-		// if (MPU6050_Init(&MPU6050_Data, GPIOA, GPIO_PIN_7, MPU6050_Device_0, MPU6050_Accelerometer_8G, MPU6050_Gyroscope_2000s) != MPU6050_Result_Ok) {
-		//         printf("Erreur d'initialisation du MPU6050\r\n");
-		//         while (1); // Boucle infinie en cas d'erreur
-		//     }
+	MPU6050_t mpu;
+	// Initialisation MPU6050, supposons que Vcc est sur PA0 (utilisé dans ton config)
+	if (MPU6050_Init(&mpu, NULL, 0, MPU6050_Device_0, MPU6050_Accelerometer_8G, MPU6050_Gyroscope_2000s) != MPU6050_Result_Ok) {
+	    printf("Erreur d'initialisation MPU6050\n");
+	    while(1); // boucle infinie en cas d'erreur
+	}
 
 
 	while (1)
@@ -90,7 +90,7 @@ int main(void)
 		int vitesse = (raw_value * VITESSE_MAX) / 4095;
 
 		// Affichage dans le terminal UART
-		printf("Vitesse: %3d km/h | raw ADC: %4d", vitesse, raw_value);
+		//printf("Vitesse: %3d km/h | raw ADC: %4d", vitesse, raw_value);
 
 		// Mettre à jour le compteur graphique
 		MetAJourCompteur(vitesse);
@@ -104,12 +104,17 @@ int main(void)
 		uint8_t duty = (uint8_t)(duty_f * 100.0f);
 
 		// Afficher le PWM dans le terminal UART
-		printf(" | PWM: %3d %%\r\n", duty);
+		//printf(" | PWM: %3d %%\r\n", duty);
 
 		// Appliquer le PWM au moteur
 		BSP_MOTOR_set_duty(moteur1, duty);
 
+
+		//Traite les donnees du MPU
+		MPU6050_ReadAll(&mpu);
+		printf("Accel X=%d Y=%d Z=%d\n", mpu.Accelerometer_X, mpu.Accelerometer_Y, mpu.Accelerometer_Z);
+
 		// Pause
-		HAL_Delay(200);
+		HAL_Delay(300);
 	}
 }

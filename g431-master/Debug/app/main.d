@@ -47,7 +47,8 @@ app/main.o: ../app/main.c ../app/config.h \
  ../drivers/bsp/stm32g4_utils.h \
  ../drivers/bsp/tft_ili9341/stm32g4_ili9341.h \
  ../drivers/bsp/tft_ili9341/stm32g4_fonts.h ../app/compteur.h \
- ../drivers/bsp/MotorDC/stm32g4_motorDC.h
+ ../drivers/bsp/MotorDC/stm32g4_motorDC.h \
+ ../drivers/bsp/MPU6050/stm32g4_mpu6050.h
 ../app/config.h:
 ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal.h:
 ../core/Inc/stm32g4xx_hal_conf.h:
@@ -103,3 +104,4 @@ app/main.o: ../app/main.c ../app/config.h \
 ../drivers/bsp/tft_ili9341/stm32g4_fonts.h:
 ../app/compteur.h:
 ../drivers/bsp/MotorDC/stm32g4_motorDC.h:
+../drivers/bsp/MPU6050/stm32g4_mpu6050.h:
