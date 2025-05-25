@@ -5,6 +5,7 @@
  * @date 	Mar 29, 2024
  * @brief	Fichier principal de votre projet sur carte Nucleo STM32G431KB
  *
+ * PA7 MPU6050
  * PA1 MoteurDC
  * PA0 Potentiometre
  *
@@ -31,7 +32,6 @@
 #define VITESSE_MAX 200
 #define ACCIDENT_MPU 3500
 
-int accident_detected = 0;
 
 extern UART_HandleTypeDef huart2; // Handle global UART2 pour printf
 
@@ -113,8 +113,13 @@ int main(void)
 		//Traite les donnees du MPU
 		MPU6050_ReadAll(&mpu);
 		printf("Accel X=%d Y=%d Z=%d\n", mpu.Accelerometer_X, mpu.Accelerometer_Y, mpu.Accelerometer_Z);
+		int16_t ax_raw = mpu.Accelerometer_X;  // valeur brute
+
+		    if (ax_raw >= ACCIDENT_MPU || ax_raw <= -ACCIDENT_MPU) {
+		        printf("ACCIDENT\n");
+
 
 		// Pause
-		HAL_Delay(300);
+		HAL_Delay(200);
 	}
 }
