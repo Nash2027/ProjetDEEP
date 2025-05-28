@@ -22,8 +22,10 @@
 #include "tft_ili9341/stm32g4_ili9341.h"
 #include "math.h"
 #include "compteur.h"
+#include "sim808.h"
 #include "MotorDC/stm32g4_motorDC.h"
 #include "MPU6050/stm32g4_mpu6050.h"
+
 
 #include <stdio.h>
 
@@ -32,7 +34,7 @@
 #define VITESSE_MAX 200
 #define ACCIDENT_MPU 3500
 
-
+int accident_detected = 0;
 extern UART_HandleTypeDef huart2; // Handle global UART2 pour printf
 
 // LED verte On/Off
@@ -112,12 +114,19 @@ int main(void)
 
 		//Traite les donnees du MPU
 		MPU6050_ReadAll(&mpu);
-		printf("Accel X=%d Y=%d Z=%d\n", mpu.Accelerometer_X, mpu.Accelerometer_Y, mpu.Accelerometer_Z);
+		printf("Accel X=%d\n", mpu.Accelerometer_X);
 		int16_t ax_raw = mpu.Accelerometer_X;  // valeur brute
 
-		    if (ax_raw >= ACCIDENT_MPU || ax_raw <= -ACCIDENT_MPU) {
-		        printf("ACCIDENT\n");
+		if ((ax_raw >= 3500 || ax_raw <= -3500) && accident_detected == 0) {
+		        printf("ACCIDENT DETECTED\n");
+		        accident_detected = 1;
 
+		        // Fonction d'envoi SMS (à définir)
+		        envoyerSMS("+33652959374", "ALERTE ACCIDENT: La moto a subi un choc important.");
+		    }
+		    else if (ax_raw < 3500 && ax_raw > -3500) {
+		        accident_detected = 0;
+		    }
 
 		// Pause
 		HAL_Delay(200);

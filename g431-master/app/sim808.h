@@ -9,5 +9,8 @@
 #define SIM808_H_
 
 
+void sendAT(const char *command, uint32_t delayMs);
+void envoyerSMS(const char* numero, const char* message);
+
 
 #endif /* SIM808_H_ */
