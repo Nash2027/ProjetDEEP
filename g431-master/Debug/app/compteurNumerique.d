@@ -1,4 +1,5 @@
-app/main.o: ../app/main.c ../app/config.h \
+app/compteurNumerique.o: ../app/compteurNumerique.c \
+ ../drivers/bsp/tft_ili9341/stm32g4_ili9341.h ../app/config.h \
  ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal.h \
  ../core/Inc/stm32g4xx_hal_conf.h \
  ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal_rcc.h \
@@ -40,15 +41,8 @@ app/main.o: ../app/main.c ../app/config.h \
  ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal_tim_ex.h \
  ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal_uart.h \
  ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal_uart_ex.h \
- ../drivers/bsp/stm32g4_sys.h ../drivers/bsp/stm32g4_uart.h \
- ../app/config.h ../drivers/bsp/stm32g4_utils.h \
- ../drivers/bsp/stm32g4_systick.h ../drivers/bsp/stm32g4_gpio.h \
- ../drivers/bsp/stm32g4_uart.h ../drivers/bsp/stm32g4_adc.h \
- ../drivers/bsp/stm32g4_utils.h \
- ../drivers/bsp/tft_ili9341/stm32g4_ili9341.h \
- ../drivers/bsp/tft_ili9341/stm32g4_fonts.h ../app/compteur.h \
- ../app/sim808.h ../drivers/bsp/MotorDC/stm32g4_motorDC.h \
- ../drivers/bsp/MPU6050/stm32g4_mpu6050.h ../app/compteurNumerique.h
+ ../drivers/bsp/tft_ili9341/stm32g4_fonts.h ../app/compteurNumerique.h
+../drivers/bsp/tft_ili9341/stm32g4_ili9341.h:
 ../app/config.h:
 ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal.h:
 ../core/Inc/stm32g4xx_hal_conf.h:
@@ -91,19 +85,5 @@ app/main.o: ../app/main.c ../app/config.h \
 ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal_tim_ex.h:
 ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal_uart.h:
 ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal_uart_ex.h:
-../drivers/bsp/stm32g4_sys.h:
-../drivers/bsp/stm32g4_uart.h:
-../app/config.h:
-../drivers/bsp/stm32g4_utils.h:
-../drivers/bsp/stm32g4_systick.h:
-../drivers/bsp/stm32g4_gpio.h:
-../drivers/bsp/stm32g4_uart.h:
-../drivers/bsp/stm32g4_adc.h:
-../drivers/bsp/stm32g4_utils.h:
-../drivers/bsp/tft_ili9341/stm32g4_ili9341.h:
 ../drivers/bsp/tft_ili9341/stm32g4_fonts.h:
-../app/compteur.h:
-../app/sim808.h:
-../drivers/bsp/MotorDC/stm32g4_motorDC.h:
-../drivers/bsp/MPU6050/stm32g4_mpu6050.h:
 ../app/compteurNumerique.h:

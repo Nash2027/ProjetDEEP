@@ -25,27 +25,21 @@
 #include "sim808.h"
 #include "MotorDC/stm32g4_motorDC.h"
 #include "MPU6050/stm32g4_mpu6050.h"
-
+#include "compteurNumerique.h"
 
 #include <stdio.h>
 
-
-#define BLINK_DELAY 100	//ms
 #define VITESSE_MAX 200
 #define ACCIDENT_MPU 3500
 
 int accident_detected = 0;
-extern UART_HandleTypeDef huart2; // Handle global UART2 pour printf
+extern UART_HandleTypeDef huart2;
 
-// LED verte On/Off
 void write_LED(bool b)
 {
 	HAL_GPIO_WritePin(LED_GREEN_GPIO, LED_GREEN_PIN, b);
 }
 
-/**
-  * @brief  Point d'entrée de votre application
-  */
 int main(void)
 {
 	// Initialisation HAL
@@ -65,70 +59,65 @@ int main(void)
 	ILI9341_Init();
 	ILI9341_Rotate(ILI9341_Orientation_Landscape_2);
 
-	// Dessiner compteur de vitesse au démarrage
-	Dessine_compteur_vitesse();
 
-	// Initialisation ADC (potentiomètre)
+	Dessine_compteur_vitesse(); // Dessin initial du compteur
+
+
+
+
+	// Initialisation ADC pour le potentiomètre
 	BSP_ADC_init();
 
-	// Initialisation moteur DC
+	// Initialisation du moteur DC sur PA1 (PWM) et PB0 (Direction ou GND)
 	static motor_id_e moteur1;
 	moteur1 = BSP_MOTOR_add(GPIOA, GPIO_PIN_1, GPIOB, GPIO_PIN_0);
 
+	// Initialisation MPU6050
 	MPU6050_t mpu;
-	// Initialisation MPU6050, supposons que Vcc est sur PA0 (utilisé dans ton config)
 	if (MPU6050_Init(&mpu, NULL, 0, MPU6050_Device_0, MPU6050_Accelerometer_8G, MPU6050_Gyroscope_2000s) != MPU6050_Result_Ok) {
 	    printf("Erreur d'initialisation MPU6050\n");
-	    while(1); // boucle infinie en cas d'erreur
+	    while(1);
 	}
-
-
-	while (1)
+	while(1)
 	{
-		// Lire valeur brute du potentiomètre (PA4 = ADC_17)
+		// Lire la valeur brute du potentiomètre (PA0)
 		uint16_t raw_value = BSP_ADC_getValue(ADC_1);
-
-		// Convertir la valeur ADC en vitesse (0 à VITESSE_MAX)
+		// Calcul de la vitesse en fonction de la valeur ADC
 		int vitesse = (raw_value * VITESSE_MAX) / 4095;
 
-		// Affichage dans le terminal UART
-		//printf("Vitesse: %3d km/h | raw ADC: %4d", vitesse, raw_value);
+		//static int vitesse = 0;
+		//vitesse += 5;
+		//if (vitesse > VITESSE_MAX) vitesse = 0;
 
-		// Mettre à jour le compteur graphique
+		// Affichage UART
+		printf("\nVitesse: %3d km/h ", vitesse);
+
+		// Mise à jour graphique de l'aiguille du compteur
 		MetAJourCompteur(vitesse);
 
-		// Calcul du PWM avec une réponse progressive
-		float duty_f = 0.0f;
-		if (vitesse > 0) {
-			float ratio = (float)vitesse / VITESSE_MAX;     // 0.0 à 1.0
-			duty_f = 0.6f + powf(ratio, 1.5f) * 0.4f;          // entre 60% et 100%
-		}
+
+		float ratio = (float)vitesse / VITESSE_MAX;
+		float duty_f = 0.5f + ratio * 0.5f;
 		uint8_t duty = (uint8_t)(duty_f * 100.0f);
 
-		// Afficher le PWM dans le terminal UART
-		//printf(" | PWM: %3d %%\r\n", duty);
+		// Affichage du PWM
+		printf(" | PWM moteur : %d%%\n", duty);
 
-		// Appliquer le PWM au moteur
 		BSP_MOTOR_set_duty(moteur1, duty);
 
-
-		//Traite les donnees du MPU
+		// Lecture MPU6050
 		MPU6050_ReadAll(&mpu);
-		printf("Accel X=%d\n", mpu.Accelerometer_X);
-		int16_t ax_raw = mpu.Accelerometer_X;  // valeur brute
+		int16_t accelX = mpu.Accelerometer_X;
 
-		if ((ax_raw >= 3500 || ax_raw <= -3500) && accident_detected == 0) {
-		        printf("ACCIDENT DETECTED\n");
-		        accident_detected = 1;
+		if ((accelX >= ACCIDENT_MPU || accelX <= -ACCIDENT_MPU) && accident_detected == 0) {
+			printf("ACCIDENT DETECTED\n");
+			accident_detected = 1;
+			envoyerSMS("+33662037899", "ALERTE ACCIDENT: La moto a subi un choc important.");
+		}
+		else if (accelX < ACCIDENT_MPU && accelX > -ACCIDENT_MPU) {
+			accident_detected = 0;
+		}
 
-		        // Fonction d'envoi SMS (à définir)
-		        envoyerSMS("+33652959374", "ALERTE ACCIDENT: La moto a subi un choc important.");
-		    }
-		    else if (ax_raw < 3500 && ax_raw > -3500) {
-		        accident_detected = 0;
-		    }
-
-		// Pause
 		HAL_Delay(200);
 	}
 }
