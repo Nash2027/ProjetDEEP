@@ -1,0 +1,108 @@
+\doxysection{app/main.c File Reference}
+\hypertarget{main_8c}{}\label{main_8c}\index{app/main.c@{app/main.c}}
+
+
+Fichier principal du projet STM32\+G431\+KB \+: Compteur de vitesse, gestion moteur, detection d\textquotesingle{}accident et envoi SMS avec SIM808.  
+
+
+{\ttfamily \#include "{}config.\+h"{}}\newline
+{\ttfamily \#include "{}stm32g4\+\_\+sys.\+h"{}}\newline
+{\ttfamily \#include "{}stm32g4\+\_\+systick.\+h"{}}\newline
+{\ttfamily \#include "{}stm32g4\+\_\+gpio.\+h"{}}\newline
+{\ttfamily \#include "{}stm32g4\+\_\+uart.\+h"{}}\newline
+{\ttfamily \#include "{}stm32g4\+\_\+adc.\+h"{}}\newline
+{\ttfamily \#include "{}stm32g4\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}tft\+\_\+ili9341/stm32g4\+\_\+ili9341.\+h"{}}\newline
+{\ttfamily \#include "{}math.\+h"{}}\newline
+{\ttfamily \#include "{}compteur.\+h"{}}\newline
+{\ttfamily \#include "{}sim808.\+h"{}}\newline
+{\ttfamily \#include "{}Motor\+DC/stm32g4\+\_\+motor\+DC.\+h"{}}\newline
+{\ttfamily \#include "{}MPU6050/stm32g4\+\_\+mpu6050.\+h"{}}\newline
+{\ttfamily \#include "{}constantes.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8c_adf94e9a3328e5a15ba5bef9816405afd}{write\+\_\+\+LED}} (bool b)
+\begin{DoxyCompactList}\small\item\em Allume ou éteint la LED verte. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\begin{DoxyCompactList}\small\item\em Point d\textquotesingle{}entrée principal du programme. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8c_a3f45eefc00453d54fb92b52796c99e71}{accident\+\_\+detected}} = 0
+\item 
+\Hypertarget{main_8c_aa9479c261d65eecedd3d9582f7f0f89c}\label{main_8c_aa9479c261d65eecedd3d9582f7f0f89c} 
+UART\+\_\+\+Handle\+Type\+Def {\bfseries huart2}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Fichier principal du projet STM32\+G431\+KB \+: Compteur de vitesse, gestion moteur, detection d\textquotesingle{}accident et envoi SMS avec SIM808. 
+
+\begin{DoxyAuthor}{Author}
+jjo 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Mar 29, 2024 
+\end{DoxyDate}
+Ce programme \+:
+\begin{DoxyItemize}
+\item Affiche un compteur de vitesse sur écran TFT ILI9341
+\item Contrôle un moteur DC en fonction d un potentiomètre
+\item Lit un accéléromètre MPU6050 pour détecter un choc
+\item Envoie un SMS d alerte via un module SIM808 si un choc est détecté 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{main_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{main_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Point d\textquotesingle{}entrée principal du programme. 
+
+Initialise tous les périphériques (GPIO, UART, ADC, TFT, moteur, MPU6050) et effectue dans une boucle infinie \+:
+\begin{DoxyItemize}
+\item Lecture du potentiomètre pour calculer la vitesse
+\item Affichage graphique de la vitesse sur TFT
+\item Réglage du PWM pour le moteur
+\item Lecture de l\textquotesingle{}accéléromètre pour détection d\textquotesingle{}accident
+\item Envoi d un SMS d alerte via SIM808 si accident détecté
+\end{DoxyItemize}
+
+\begin{DoxyReturn}{Returns}
+int Ne retourne jamais (boucle infinie). 
+\end{DoxyReturn}
+\Hypertarget{main_8c_adf94e9a3328e5a15ba5bef9816405afd}\index{main.c@{main.c}!write\_LED@{write\_LED}}
+\index{write\_LED@{write\_LED}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{write\_LED()}{write\_LED()}}
+{\footnotesize\ttfamily \label{main_8c_adf94e9a3328e5a15ba5bef9816405afd} 
+void write\+\_\+\+LED (\begin{DoxyParamCaption}\item[{bool}]{b}{}\end{DoxyParamCaption})}
+
+
+
+Allume ou éteint la LED verte. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em b} & {\ttfamily true} pour allumer, {\ttfamily false} pour éteindre. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-var-members}
+\Hypertarget{main_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{main_8c_a3f45eefc00453d54fb92b52796c99e71}\index{main.c@{main.c}!accident\_detected@{accident\_detected}}
+\index{accident\_detected@{accident\_detected}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{accident\_detected}{accident\_detected}}
+{\footnotesize\ttfamily \label{main_8c_a3f45eefc00453d54fb92b52796c99e71} 
+int accident\+\_\+detected = 0}
+
+Indique si un accident a déjà été détecté 

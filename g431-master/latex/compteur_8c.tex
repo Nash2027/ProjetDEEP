@@ -1,0 +1,84 @@
+\doxysection{app/compteur.c File Reference}
+\hypertarget{compteur_8c}{}\label{compteur_8c}\index{app/compteur.c@{app/compteur.c}}
+
+
+Affichage graphique d\textquotesingle{}un compteur de vitesse sur ecran TFT ILI9341.  
+
+
+{\ttfamily \#include "{}tft\+\_\+ili9341/stm32g4\+\_\+ili9341.\+h"{}}\newline
+{\ttfamily \#include "{}compteur.\+h"{}}\newline
+{\ttfamily \#include "{}math.\+h"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}constantes.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{compteur_8c_ada89061f88a0dac718ee5729ea60a1ec}{Dessine\+\_\+compteur\+\_\+vitesse}} ()
+\begin{DoxyCompactList}\small\item\em Dessine le compteur de vitesse circulaire. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{compteur_8c_a29053a7b5f585cd4d359bb139032ca87}{Dessine\+\_\+\+Aiguille}} (int vitesse)
+\begin{DoxyCompactList}\small\item\em Dessine ou met à jour l aiguille indiquant la vitesse. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{compteur_8c_a914b30717ba7fa6e42a094ba2b964abc}{Met\+AJour\+Compteur}} (int nouvelle\+Vitesse)
+\begin{DoxyCompactList}\small\item\em Met à jour le compteur avec une nouvelle vitesse. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Affichage graphique d\textquotesingle{}un compteur de vitesse sur ecran TFT ILI9341. 
+
+Ce fichier contient les fonctions permettant d\textquotesingle{}afficher un compteur de vitesse circulaire avec une aiguille animée, sur un écran TFT contrôlé par le driver ILI9341. Il comprend \+:
+\begin{DoxyItemize}
+\item Le dessin du cadran avec graduations (tous les 10 km/h)
+\item Le dessin et mise à jour de l aiguille en fonction de la vitesse actuelle
+\item Une fonction pour mettre à jour le compteur avec une nouvelle vitesse 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{compteur_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{compteur_8c_a29053a7b5f585cd4d359bb139032ca87}\index{compteur.c@{compteur.c}!Dessine\_Aiguille@{Dessine\_Aiguille}}
+\index{Dessine\_Aiguille@{Dessine\_Aiguille}!compteur.c@{compteur.c}}
+\doxysubsubsection{\texorpdfstring{Dessine\_Aiguille()}{Dessine\_Aiguille()}}
+{\footnotesize\ttfamily \label{compteur_8c_a29053a7b5f585cd4d359bb139032ca87} 
+void Dessine\+\_\+\+Aiguille (\begin{DoxyParamCaption}\item[{int}]{vitesse}{}\end{DoxyParamCaption})}
+
+
+
+Dessine ou met à jour l aiguille indiquant la vitesse. 
+
+Dessine ou met à jour l\textquotesingle{}aiguille en fonction de la vitesse actuelle.
+
+Cette fonction efface l ancienne position de l aiguille (en noir), puis calcule et dessine la nouvelle aiguille (en rouge) en fonction de la vitesse.
+
+
+\begin{DoxyParams}{Parameters}
+{\em vitesse} & Vitesse actuelle à afficher (entre 0 et VITESSE\+\_\+\+MAX). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{compteur_8c_ada89061f88a0dac718ee5729ea60a1ec}\index{compteur.c@{compteur.c}!Dessine\_compteur\_vitesse@{Dessine\_compteur\_vitesse}}
+\index{Dessine\_compteur\_vitesse@{Dessine\_compteur\_vitesse}!compteur.c@{compteur.c}}
+\doxysubsubsection{\texorpdfstring{Dessine\_compteur\_vitesse()}{Dessine\_compteur\_vitesse()}}
+{\footnotesize\ttfamily \label{compteur_8c_ada89061f88a0dac718ee5729ea60a1ec} 
+void Dessine\+\_\+compteur\+\_\+vitesse (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Dessine le compteur de vitesse circulaire. 
+
+Dessine le compteur de vitesse circulaire sur l\textquotesingle{}écran TFT.
+
+Cette fonction efface l écran, dessine un cercle principal représentant le cadran, puis trace les graduations toutes les 10 unités de vitesse, ainsi que leur valeur numérique. \Hypertarget{compteur_8c_a914b30717ba7fa6e42a094ba2b964abc}\index{compteur.c@{compteur.c}!MetAJourCompteur@{MetAJourCompteur}}
+\index{MetAJourCompteur@{MetAJourCompteur}!compteur.c@{compteur.c}}
+\doxysubsubsection{\texorpdfstring{MetAJourCompteur()}{MetAJourCompteur()}}
+{\footnotesize\ttfamily \label{compteur_8c_a914b30717ba7fa6e42a094ba2b964abc} 
+void Met\+AJour\+Compteur (\begin{DoxyParamCaption}\item[{int}]{nouvelle\+Vitesse}{}\end{DoxyParamCaption})}
+
+
+
+Met à jour le compteur avec une nouvelle vitesse. 
+
+Met à jour le compteur de vitesse avec une nouvelle valeur.
+
+
+\begin{DoxyParams}{Parameters}
+{\em nouvelle\+Vitesse} & Nouvelle valeur de la vitesse à afficher \\
+\hline
+\end{DoxyParams}

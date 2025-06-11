@@ -1,5 +1,4 @@
 "./app/compteur.o"
-"./app/compteurNumerique.o"
 "./app/main.o"
 "./app/sim808.o"
 "./core/Src/stm32g4xx_it.o"

@@ -1,0 +1,106 @@
+\doxysection{app/compteur.h File Reference}
+\hypertarget{compteur_8h}{}\label{compteur_8h}\index{app/compteur.h@{app/compteur.h}}
+
+
+Interface pour le compteur de vitesse graphique sur TFT ILI9341.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{compteur_8h_a95277044bf4f055b03e1256b774b0c38}{Dessine\+\_\+compteur\+\_\+vitesse}} (void)
+\begin{DoxyCompactList}\small\item\em Dessine le compteur de vitesse circulaire sur l\textquotesingle{}écran TFT. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{compteur_8h_a29053a7b5f585cd4d359bb139032ca87}{Dessine\+\_\+\+Aiguille}} (int vitesse)
+\begin{DoxyCompactList}\small\item\em Dessine ou met à jour l\textquotesingle{}aiguille en fonction de la vitesse actuelle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{compteur_8h_a914b30717ba7fa6e42a094ba2b964abc}{Met\+AJour\+Compteur}} (int nouvelle\+Vitesse)
+\begin{DoxyCompactList}\small\item\em Met à jour le compteur de vitesse avec une nouvelle valeur. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface pour le compteur de vitesse graphique sur TFT ILI9341. 
+
+\begin{DoxyAuthor}{Author}
+\mbox{[}Ton nom ou initiales\mbox{]} 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+Mar 28, 2025 
+\end{DoxyDate}
+Ce module fournit des fonctions pour \+:
+\begin{DoxyItemize}
+\item dessiner un cadran circulaire avec des graduations,
+\item afficher une aiguille animée représentant la vitesse,
+\item mettre à jour dynamiquement la vitesse affichée. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{compteur_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{compteur_8h_a29053a7b5f585cd4d359bb139032ca87}\index{compteur.h@{compteur.h}!Dessine\_Aiguille@{Dessine\_Aiguille}}
+\index{Dessine\_Aiguille@{Dessine\_Aiguille}!compteur.h@{compteur.h}}
+\doxysubsubsection{\texorpdfstring{Dessine\_Aiguille()}{Dessine\_Aiguille()}}
+{\footnotesize\ttfamily \label{compteur_8h_a29053a7b5f585cd4d359bb139032ca87} 
+void Dessine\+\_\+\+Aiguille (\begin{DoxyParamCaption}\item[{int}]{vitesse}{}\end{DoxyParamCaption})}
+
+
+
+Dessine ou met à jour l\textquotesingle{}aiguille en fonction de la vitesse actuelle. 
+
+Efface la précédente aiguille et redessine la nouvelle à la bonne position angulaire.
+
+
+\begin{DoxyParams}{Parameters}
+{\em vitesse} & Vitesse actuelle à afficher (0 à VITESSE\+\_\+\+MAX).\\
+\hline
+\end{DoxyParams}
+Dessine ou met à jour l\textquotesingle{}aiguille en fonction de la vitesse actuelle.
+
+Cette fonction efface l ancienne position de l aiguille (en noir), puis calcule et dessine la nouvelle aiguille (en rouge) en fonction de la vitesse.
+
+
+\begin{DoxyParams}{Parameters}
+{\em vitesse} & Vitesse actuelle à afficher (entre 0 et VITESSE\+\_\+\+MAX). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{compteur_8h_a95277044bf4f055b03e1256b774b0c38}\index{compteur.h@{compteur.h}!Dessine\_compteur\_vitesse@{Dessine\_compteur\_vitesse}}
+\index{Dessine\_compteur\_vitesse@{Dessine\_compteur\_vitesse}!compteur.h@{compteur.h}}
+\doxysubsubsection{\texorpdfstring{Dessine\_compteur\_vitesse()}{Dessine\_compteur\_vitesse()}}
+{\footnotesize\ttfamily \label{compteur_8h_a95277044bf4f055b03e1256b774b0c38} 
+void Dessine\+\_\+compteur\+\_\+vitesse (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Dessine le compteur de vitesse circulaire sur l\textquotesingle{}écran TFT. 
+
+\texorpdfstring{$<$}{<} Pour les types entiers comme int32\+\_\+t, etc. 
+
+Affiche le cadran principal, les graduations tous les 10 km/h et les chiffres correspondants.
+
+À appeler une seule fois à l\textquotesingle{}initialisation.
+
+Dessine le compteur de vitesse circulaire sur l\textquotesingle{}écran TFT.
+
+Cette fonction efface l écran, dessine un cercle principal représentant le cadran, puis trace les graduations toutes les 10 unités de vitesse, ainsi que leur valeur numérique. \Hypertarget{compteur_8h_a914b30717ba7fa6e42a094ba2b964abc}\index{compteur.h@{compteur.h}!MetAJourCompteur@{MetAJourCompteur}}
+\index{MetAJourCompteur@{MetAJourCompteur}!compteur.h@{compteur.h}}
+\doxysubsubsection{\texorpdfstring{MetAJourCompteur()}{MetAJourCompteur()}}
+{\footnotesize\ttfamily \label{compteur_8h_a914b30717ba7fa6e42a094ba2b964abc} 
+void Met\+AJour\+Compteur (\begin{DoxyParamCaption}\item[{int}]{nouvelle\+Vitesse}{}\end{DoxyParamCaption})}
+
+
+
+Met à jour le compteur de vitesse avec une nouvelle valeur. 
+
+Cette fonction appelle {\ttfamily Dessine\+\_\+\+Aiguille} pour gérer la mise à jour visuelle.
+
+
+\begin{DoxyParams}{Parameters}
+{\em nouvelle\+Vitesse} & Nouvelle valeur de vitesse à représenter.\\
+\hline
+\end{DoxyParams}
+Met à jour le compteur de vitesse avec une nouvelle valeur.
+
+
+\begin{DoxyParams}{Parameters}
+{\em nouvelle\+Vitesse} & Nouvelle valeur de la vitesse à afficher \\
+\hline
+\end{DoxyParams}

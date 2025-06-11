@@ -1,10 +1,27 @@
+/**
+ * @file compteur.c
+ * @brief Affichage graphique d'un compteur de vitesse sur ecran TFT ILI9341.
+ *
+ * Ce fichier contient les fonctions permettant d'afficher un compteur de vitesse
+ * circulaire avec une aiguille animée, sur un écran TFT contrôlé par le driver ILI9341.
+ * Il comprend :
+ * - Le dessin du cadran avec graduations (tous les 10 km/h)
+ * - Le dessin et mise à jour de l aiguille en fonction de la vitesse actuelle
+ * - Une fonction pour mettre à jour le compteur avec une nouvelle vitesse
+ */
+
 #include "tft_ili9341/stm32g4_ili9341.h"
 #include "compteur.h"
 #include "math.h"
 #include <string.h>
+#include "constantes.h"
 
-#define VITESSE_MAX 200
-
+/**
+ * @brief Dessine le compteur de vitesse circulaire.
+ *
+ * Cette fonction efface l écran, dessine un cercle principal représentant le cadran,
+ * puis trace les graduations toutes les 10 unités de vitesse, ainsi que leur valeur numérique.
+ */
 void Dessine_compteur_vitesse() {
     ILI9341_Fill(ILI9341_COLOR_BLACK); // Efface l'écran
 
@@ -28,6 +45,14 @@ void Dessine_compteur_vitesse() {
     }
 }
 
+/**
+ * @brief Dessine ou met à jour l aiguille indiquant la vitesse.
+ *
+ * Cette fonction efface l ancienne position de l aiguille (en noir),
+ * puis calcule et dessine la nouvelle aiguille (en rouge) en fonction de la vitesse.
+ *
+ * @param vitesse Vitesse actuelle à afficher (entre 0 et VITESSE_MAX).
+ */
 void Dessine_Aiguille(int vitesse) {
     static int ancienneVitesse = -1; // -1 pour forcer le premier dessin
 
@@ -50,8 +75,11 @@ void Dessine_Aiguille(int vitesse) {
     ancienneVitesse = vitesse;
 }
 
-
+/**
+ * @brief Met à jour le compteur avec une nouvelle vitesse
+ *
+ * @param nouvelleVitesse Nouvelle valeur de la vitesse à afficher
+ */
 void MetAJourCompteur(int nouvelleVitesse) {
-
     Dessine_Aiguille(nouvelleVitesse);
 }

@@ -1,3 +1,3 @@
-../app/compteur.c:8:6:Dessine_compteur_vitesse	2
-../app/compteur.c:31:6:Dessine_Aiguille	2
-../app/compteur.c:54:6:MetAJourCompteur	1
+../app/compteur.c:25:6:Dessine_compteur_vitesse	2
+../app/compteur.c:56:6:Dessine_Aiguille	2
+../app/compteur.c:83:6:MetAJourCompteur	1

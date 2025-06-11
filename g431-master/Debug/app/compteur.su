@@ -1,3 +1,3 @@
-../app/compteur.c:8:6:Dessine_compteur_vitesse	48	static
-../app/compteur.c:31:6:Dessine_Aiguille	32	static
-../app/compteur.c:54:6:MetAJourCompteur	8	static
+../app/compteur.c:25:6:Dessine_compteur_vitesse	48	static
+../app/compteur.c:56:6:Dessine_Aiguille	32	static
+../app/compteur.c:83:6:MetAJourCompteur	8	static

@@ -6,19 +6,16 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../app/compteur.c \
-../app/compteurNumerique.c \
 ../app/main.c \
 ../app/sim808.c 
 
 OBJS += \
 ./app/compteur.o \
-./app/compteurNumerique.o \
 ./app/main.o \
 ./app/sim808.o 
 
 C_DEPS += \
 ./app/compteur.d \
-./app/compteurNumerique.d \
 ./app/main.d \
 ./app/sim808.d 
 
@@ -30,7 +27,7 @@ app/%.o app/%.su app/%.cyclo: ../app/%.c app/subdir.mk
 clean: clean-app
 
 clean-app:
-	-$(RM) ./app/compteur.cyclo ./app/compteur.d ./app/compteur.o ./app/compteur.su ./app/compteurNumerique.cyclo ./app/compteurNumerique.d ./app/compteurNumerique.o ./app/compteurNumerique.su ./app/main.cyclo ./app/main.d ./app/main.o ./app/main.su ./app/sim808.cyclo ./app/sim808.d ./app/sim808.o ./app/sim808.su
+	-$(RM) ./app/compteur.cyclo ./app/compteur.d ./app/compteur.o ./app/compteur.su ./app/main.cyclo ./app/main.d ./app/main.o ./app/main.su ./app/sim808.cyclo ./app/sim808.d ./app/sim808.o ./app/sim808.su
 
 .PHONY: clean-app
 

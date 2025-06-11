@@ -41,7 +41,8 @@ app/compteur.o: ../app/compteur.c \
  ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal_tim_ex.h \
  ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal_uart.h \
  ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal_uart_ex.h \
- ../drivers/bsp/tft_ili9341/stm32g4_fonts.h ../app/compteur.h
+ ../drivers/bsp/tft_ili9341/stm32g4_fonts.h ../app/compteur.h \
+ ../app/constantes.h
 ../drivers/bsp/tft_ili9341/stm32g4_ili9341.h:
 ../app/config.h:
 ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal.h:
@@ -87,3 +88,4 @@ app/compteur.o: ../app/compteur.c \
 ../drivers/stm32g4xx_hal/Inc/stm32g4xx_hal_uart_ex.h:
 ../drivers/bsp/tft_ili9341/stm32g4_fonts.h:
 ../app/compteur.h:
+../app/constantes.h:

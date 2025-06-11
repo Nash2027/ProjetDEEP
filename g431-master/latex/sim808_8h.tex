@@ -1,0 +1,98 @@
+\doxysection{app/sim808.h File Reference}
+\hypertarget{sim808_8h}{}\label{sim808_8h}\index{app/sim808.h@{app/sim808.h}}
+
+
+Interface de communication avec le module GSM SIM808 via UART.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{sim808_8h_ae24c923ebd3a359e8271f040bdfc1758}{send\+AT}} (const char \texorpdfstring{$\ast$}{*}command, uint32\+\_\+t delay\+Ms)
+\begin{DoxyCompactList}\small\item\em Envoie une commande AT au module SIM808 via UART. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sim808_8h_aa87bac7f5d583fd3cfa718f235c9072c}{envoyer\+SMS}} (const char \texorpdfstring{$\ast$}{*}numero, const char \texorpdfstring{$\ast$}{*}message)
+\begin{DoxyCompactList}\small\item\em Envoie un SMS via le module SIM808. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface de communication avec le module GSM SIM808 via UART. 
+
+\begin{DoxyAuthor}{Author}
+mguil 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+May 25, 2025 
+\end{DoxyDate}
+Ce module fournit des fonctions pour \+:
+\begin{DoxyItemize}
+\item envoyer des commandes AT au module SIM808,
+\item envoyer des SMS à un numéro donné. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{sim808_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{sim808_8h_aa87bac7f5d583fd3cfa718f235c9072c}\index{sim808.h@{sim808.h}!envoyerSMS@{envoyerSMS}}
+\index{envoyerSMS@{envoyerSMS}!sim808.h@{sim808.h}}
+\doxysubsubsection{\texorpdfstring{envoyerSMS()}{envoyerSMS()}}
+{\footnotesize\ttfamily \label{sim808_8h_aa87bac7f5d583fd3cfa718f235c9072c} 
+void envoyer\+SMS (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{numero}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{message}{}\end{DoxyParamCaption})}
+
+
+
+Envoie un SMS via le module SIM808. 
+
+Cette fonction initialise le mode texte, configure le numéro de téléphone et envoie le message au destinataire
+
+
+\begin{DoxyParams}{Parameters}
+{\em numero} & Numéro de téléphone au format international \\
+\hline
+{\em message} & Contenu du message SMS à envoyer\\
+\hline
+\end{DoxyParams}
+Envoie un SMS via le module SIM808.
+
+Cette fonction configure le SIM808 en mode texte, prépare la commande d\textquotesingle{}envoi de SMS avec le numéro et le message, puis envoie le tout. Elle termine par l\textquotesingle{}envoi du caractère Ctrl+Z pour déclencher l\textquotesingle{}envoi réel.
+
+
+\begin{DoxyParams}{Parameters}
+{\em numero} & Numéro de téléphone du destinataire (ex\+: "{}+33612345678"{}). \\
+\hline
+{\em message} & Message à envoyer. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{sim808_8h_ae24c923ebd3a359e8271f040bdfc1758}\index{sim808.h@{sim808.h}!sendAT@{sendAT}}
+\index{sendAT@{sendAT}!sim808.h@{sim808.h}}
+\doxysubsubsection{\texorpdfstring{sendAT()}{sendAT()}}
+{\footnotesize\ttfamily \label{sim808_8h_ae24c923ebd3a359e8271f040bdfc1758} 
+void send\+AT (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{command}{, }\item[{uint32\+\_\+t}]{delay\+Ms}{}\end{DoxyParamCaption})}
+
+
+
+Envoie une commande AT au module SIM808 via UART. 
+
+\texorpdfstring{$<$}{<} Pour uint32\+\_\+t \texorpdfstring{$<$}{<} Pour size\+\_\+t (au besoin) 
+
+Cette fonction écrit la commande AT suivie dun retour chariot, puis attend un délai pour laisser le module répondre
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & La commande AT à envoyer \\
+\hline
+{\em delay\+Ms} & Délai en millisecondes à attendre après l\textquotesingle{}envoi\\
+\hline
+\end{DoxyParams}
+Envoie une commande AT au module SIM808 via UART.
+
+Cette fonction formate et envoie une commande AT terminée par retour chariot et saut de ligne, puis attend un certain délai pour permettre au module de répondre.
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & La commande AT à envoyer (ex\+: "{}\+AT+\+CMGF=1"{}). \\
+\hline
+{\em delay\+Ms} & Temps d\textquotesingle{}attente après l\textquotesingle{}envoi (en millisecondes). \\
+\hline
+\end{DoxyParams}
