@@ -1,6 +1,6 @@
 /**
  * @file constantes.h
- * @brief Définitions des constantes utilisées dans le projet.
+ * @brief Definitions des constantes utilisees dans le projet.
  *
  * Ce fichier contient les constantes pour la vitesse maximale
  * et le seuil d'accident détecté par le MPU.
